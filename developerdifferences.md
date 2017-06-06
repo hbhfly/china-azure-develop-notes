@@ -9,7 +9,7 @@
 	solutions="" 
 	manager="TK" 
 	editor=""/>
-<tags ms.service="multiple" ms.date="" wacn.date="11/18/2016"/>
+<tags ms.service="multiple" ms.date="" wacn.date="05/19/2016"/>
 
 # Developer Notes for Azure in China Applications
 
@@ -41,9 +41,9 @@ A primary difference when developing an application on China Service is that the
 
 ## <a name="confdevcomp"></a>Setting Up Your Development Computer
 
-Visual Studio supports development on Azure China. The walkthrough uses Visual Studio 2015 update 3. [Downloads | Visual Studio Official Site](https://www.visualstudio.com/downloads/)
+Visual Studio 2015 supports development on Azure China. The walkthrough uses Visual Studio 2015 update 3. [Downloads | Visual Studio Official Site](https://www.visualstudio.com/downloads/)
 
-## Setup Visual Studio for connecting to Azure China
+### <font color="red">使用 Visual Studio 2015，连接中国区 Azure</font>
 
 Follow the instructions to setup your Visual Studio for Azure China:
 
@@ -82,6 +82,71 @@ Follow the instructions to setup your Visual Studio for Azure China:
 2. Double click the Azure.reg file and consent to the pop up messages to allow the registry value changes.
 
 3. After the registry values changed, all Visual Studio sign-in should connect to Azure China service.
+
+### <font color="red">使用 Visual Studio 2017，连接中国区 Azure
+
+[Visual Studio 2017](https://www.visualstudio.com/) 刚刚发布，我们引入了新的方式来连接到中国区 Azure 服务。步骤如下：
+
+新建一个 JSON 文件 **AadProvider.Configuration.json**，文件内容如下：
+
+		{
+		"AuthenticationQueryParameters": null,
+		"AsmEndPoint": "https://management.core.chinacloudapi.cn",
+		"Authority": "https://login.chinacloudapi.cn/",
+		"AzureResourceManagementEndpoint": "https://management.chinacloudapi.cn/",
+		"AzureResourceManagementAudienceEndpoints": [ "https://management.core.chinacloudapi.cn/" ],
+		"ClientIdentifier": "872cd9fa-d31f-45e0-9eab-6e460a02d1f1",
+		"EnvironmentName": "Mooncake",
+		"GraphEndpoint": "https://graph.chinacloudapi.cn",
+		"MsaHomeTenantId": "f577cd82-810c-43f9-a1f6-0cc532871050",
+		"NativeClientRedirect": "urn:ietf:wg:oauth:2.0:oob",
+		"PortalEndpoint": "http://manage.windowsazure.cn",
+		"ResourceEndpoint": "https://management.core.chinacloudapi.cn/",
+		"ValidateAuthority": true,
+		"VisualStudioOnlineEndpoint": "https://app.vssps.visualstudio.com/",
+		"VisualStudioOnlineAudience": "499b84ac-1321-427f-aa17-267ca6975798"
+		}
+
+- **连接到中国区 Azure 服务**
+
+	1.	确保已登出并关闭 Visual Studio。
+	2.	删除 **%temp%\servicehub** 文件夹（详细路径为 **C:\Users\%USERPROFILE%\AppData\Local\Temp\servicehub**）。
+	3.	把前面新建的 JSON 文件 (**AadProvider.Configuration.json**) 拷贝到 **%localappdata%\\.IdentityService\AadConfigurations**（详细路径为 **C:\Users\%USERPROFILE%\AppData\Local\\.IdentityService\AadConfigurations**, **AadConfigurations** 文件夹可能不存在，需要手动创建）。
+	4.	重启 VS 并添加中国 Azure 账户即可。
+
+- **切换回 Global Azure**
+
+	1.	确保已登出并关闭 Visual Studio。
+	2.	删除文件夹 **%localappdata%\\.IdentityService\AadConfigurations**
+	3.	重启 VS 即可连接 Global Azure。
+
+## <a name="use-china-azure-with-java"></a>Java 用户使用中国区 Azure 
+
+### Java 用户使用 Eclipse 或 IntelliJ，连接中国区 Azure
+目前需要开发者使用 Azure CLI 生成认证文件，在 Eclipse 或 IntelliJ 中选择基于文件的方式登陆，并上传此认证文件，即可完成连接 ( 参考 [Azure SDK 相关页](https://github.com/Azure/azure-sdk-for-java/blob/master/AUTH.md#creating-a-service-principal-in-azure) )。步骤如下：
+
+1. 请首先安装 Azure CLI，版本要求 2.0 及以上。[Azure CLI Installation](https://docs.microsoft.com/zh-cn/cli/azure/install-azure-cli) | [Azure CLI 安装指南](/documentation/articles/xplat-cli-install/)
+
+2. 使用 Azure CLI 生成认证文件并保存至本地。
+
+    a. 使用 `az cloud set --name AzureChinaCloud`  连接中国区 Azure。
+
+    b. 使用 `az login -u <account email> -p <account password>` 替换其中的账号和密码，登陆 Azure。
+
+    c. 如果在中国区 Azure 有多个订阅账户 Subscription，使用 `az account set --subscription <subscirption name>` 选择用来生成认证信息的订阅账户。
+
+    d. 使用以下命令，生成认证文件 my.azureauth 并保存于本地。 `curl -L https://raw.githubusercontent.com/Azure/azure-sdk-for-java/master/tools/authgen.py | python > my.azureauth`
+
+3. 在 Eclipse 或 IntelliJ 中，选择基于文件的方式登陆，并上传步骤 2 中生成的认证文件。
+
+    a. 请确认已在 Eclipse 或 IntelliJ 中安装或更新至最新版本的 Azure Toolkit 插件。 [Eclipse 指南](/documentation/articles/azure-toolkit-for-eclipse-installation/) | [IntelliJ 指南](/documentation/articles/azure-toolkit-for-intellij-installation/)
+    
+    b. 在 Azure Sign In 窗口选择 Automated 作为登陆方式，并上传步骤 2 中生成的认证文件 my.azureauth。
+
+    ![12](./media/developerdifferences/developerdifferences-12.png)
+
+    c. 点击登陆，即可连接中国区 Azure。如遇问题，可在 [Azure Toolkit 相关页](https://github.com/Microsoft/azure-tools-for-java)提出并标记 Mooncake 标签。
+</font>
 
 ## Examples of scenarios enabled
 
@@ -147,7 +212,7 @@ Service Type|Global Service URI|China Service URI
 :--|:--|:--
 Azure - General | *.windows.net | *.chinacloudapi.cn
 Azure - Compute | *.cloudapp.net | *.chinacloudapp.cn  
-Azure - Service Fabric Cluster | *.cloudapp.azure.com | *.chinaeast.chinacloudapp.cn
+Azure - Service Fabric Cluster | *.cloudapp.azure.com | *.cloudapp.chinacloudapi.cn
 Azure - Storage | <p>\*.blob.core.windows.net </p> <p>\*.queue.core.windows.net </p> <p>\*.table.core.windows.net</p> | <p>*.blob.core.chinacloudapi.cn </p><p> *.queue.core.chinacloudapi.cn </p><p> *.table.core.chinacloudapi.cn</p>
 Azure - Service Management | https://management.core.windows.net | https://management.core.chinacloudapi.cn
 Azure - Resoure Manager (ARM) | https://management.azure.com | https://management.chinacloudapi.cn
@@ -166,7 +231,11 @@ AAD Login | https://login.windows.net| https://login.chinacloudapi.cn
 AAD Graph API | https://graph.windows.net| https://graph.chinacloudapi.cn
 Azure 认知服务 | https://api.projectoxford.ai/face/v1.0 | https://api.cognitive.azure.cn/face/v1.0
 SQL Database Import/Export service mapping endpoints | | <p>1. China East: [https://sh1prod-dacsvc.chinacloudapp.cn/dacwebservice.svc](https://sh1prod-dacsvc.chinacloudapp.cn/dacwebservice.svc) </p><p> 2. China North:[https://bj1prod-dacsvc.chinacloudapp.cn/dacwebservice.svc](https://bj1prod-dacsvc.chinacloudapp.cn/dacwebservice.svc)</p>
-
+Power BI Embedded | https://api.powerbi.com | https://api.powerbi.cn
+Power BI Embedded | https://embedded.powerbi.com | https://embedded.powerbi.cn
+O365 | https://login.microsoftonline.com | https://login.partner.microsoftonline.cn
+Device Login | https://aka.ms/devicelogin | https://aka.ms/deviceloginchina or https://login.chinacloudapi.cn/common/oauth2/deviceauth
+Documentdb | documents.azure.com | documents.azure.cn
 
 ### <a name="storagendpoint"></a>Storage endpoints
 
