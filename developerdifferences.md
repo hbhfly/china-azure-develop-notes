@@ -43,7 +43,7 @@ A primary difference when developing an application on China Service is that the
 
 Visual Studio 2015 supports development on Azure China. The walkthrough uses Visual Studio 2015 update 3. [Downloads | Visual Studio Official Site](https://www.visualstudio.com/downloads/)
 
-### <mark>使用 Visual Studio 2015，连接中国区 Azure</mark>
+### <mark>Setup Visual Studio 2015 for connecting to Azure China</mark>
 
 Follow the instructions to setup your Visual Studio for Azure China:
 
@@ -83,11 +83,11 @@ Follow the instructions to setup your Visual Studio for Azure China:
 
 3. After the registry values changed, all Visual Studio sign-in should connect to Azure China service.
 
-### <mark>使用 Visual Studio 2017，连接中国区 Azure</mark>
+### <mark>Setup Visual Studio 2017 for connecting to Azure China</mark>
 
-<mark>[Visual Studio 2017](https://www.visualstudio.com/) 刚刚发布，我们引入了新的方式来连接到中国区 Azure 服务。步骤如下：</mark>
+<mark>[Visual Studio 2017](https://www.visualstudio.com/) New methods are adopted for connecting to Azure China. Steps are as follows:</mark>
 
-<mark>新建一个 JSON 文件 **AadProvider.Configuration.json**，文件内容如下：</mark>
+<mark>Create a new JSON file  **AadProvider.Configuration.json**：</mark>
 
 		{
 		"AuthenticationQueryParameters": null,
@@ -107,45 +107,45 @@ Follow the instructions to setup your Visual Studio for Azure China:
 		"VisualStudioOnlineAudience": "499b84ac-1321-427f-aa17-267ca6975798"
 		}
 
-- <mark>**连接到中国区 Azure 服务**</mark>
+- <mark>**Connecting to Azure China**</mark>
 
-	1.	<mark>确保已登出并关闭 Visual Studio。</mark>
-	2.	<mark>删除 **%temp%\servicehub** 文件夹（详细路径为 **C:\Users\%USERPROFILE%\AppData\Local\Temp\servicehub**）。</mark>
-	3.	<mark>把前面新建的 JSON 文件 (**AadProvider.Configuration.json**) 拷贝到 **%localappdata%\\.IdentityService\AadConfigurations**（详细路径为 **C:\Users\%USERPROFILE%\AppData\Local\\.IdentityService\AadConfigurations**, **AadConfigurations** 文件夹可能不存在，需要手动创建）。</mark>
-	4.	<mark>重启 VS 并添加中国 Azure 账户即可。</mark>
+	1.	<mark>Make sure log out and close Visual Studio.</mark>
+	2.	<mark>Delete **%temp%\servicehub** folder（whose URL is **C:\Users\%USERPROFILE%\AppData\Local\Temp\servicehub**).</mark>
+	3.	<mark>Copy the new created JSON file (**AadProvider.Configuration.json**) to **%localappdata%\\.IdentityService\AadConfigurations**（whose URL is **C:\Users\%USERPROFILE%\AppData\Local\\.IdentityService\AadConfigurations**, Please create it manually if the folder **AadConfigurations** do not exist  ）.</mark>
+	4.	<mark>Reboot VS and add Azure China account.</mark>
 
-- <mark>**切换回 Global Azure**</mark>
+- <mark>**Switch to Global Azure**</mark>
 
-	1.	<mark>确保已登出并关闭 Visual Studio。</mark>
-	2.	<mark>删除文件夹 **%localappdata%\\.IdentityService\AadConfigurations**</mark>
-	3.	<mark>重启 VS 即可连接 Global Azure。</mark>
+	1.	<mark>Make sure Log out and close Visual Studio.</mark>
+	2.	<mark>Delete folder **%localappdata%\\.IdentityService\AadConfigurations**</mark>
+	3.	<mark>Reboot VS and connect to Global Azure。</mark>
 
-## <a name="use-china-azure-with-java"></a><mark>Java 用户使用中国区 Azure </mark>
+## <a name="use-china-azure-with-java"></a><mark>Azure China for Java users </mark>
 
-### <mark>Java 用户使用 Eclipse 或 IntelliJ，连接中国区 Azure</mark>
-<mark>目前需要开发者使用 Azure CLI 生成认证文件，在 Eclipse 或 IntelliJ 中选择基于文件的方式登陆，并上传此认证文件，即可完成连接 ( 参考 [Azure SDK 相关页](https://github.com/Azure/azure-sdk-for-java/blob/master/AUTH.md#creating-a-service-principal-in-azure) )。步骤如下：</mark>
+### <mark>Connecting to Azure China by using Eclipse or IntelliJ</mark>
+<mark>At present Azure CLI should be used to authentication file. Log in by selecting “based on file” in Eclipse or IntelliJ and upload the authetication file to connect. ( Please refer to [related page of Azure SDK](https://github.com/Azure/azure-sdk-for-java/blob/master/AUTH.md#creating-a-service-principal-in-azure) )。The steps are as follows：</mark>
 
-1. <mark>请首先安装 Azure CLI，版本要求 2.0 及以上。[Azure CLI Installation](https://docs.microsoft.com/zh-cn/cli/azure/install-azure-cli) | [Azure CLI 安装指南](/documentation/articles/xplat-cli-install/)</mark>
+1. <mark> Please install Azure CLJ with version 2.0 and above.[Azure CLI Installation](https://docs.microsoft.com/zh-cn/cli/azure/install-azure-cli) | [Azure CLI Installation Guide](/documentation/articles/xplat-cli-install/)</mark>
 
-2. <mark>使用 Azure CLI 生成认证文件并保存至本地。</mark>
+2. <mark>Use Azure CLI to generate an authetication file and save it locally </mark>
 
-    a. <mark>使用 `az cloud set --name AzureChinaCloud`  连接中国区 Azure。</mark>
+    a. <mark>Use az cloud set --name AzureChinaCloud to connect to China Azure.</mark>
 
-    b. <mark>使用 `az login -u <account email> -p <account password>` 替换其中的账号和密码，登陆 Azure。</mark>
+    b. <mark> Use az login-u <account email> -p <account password> to replace the account and password.</mark>
 
-    c. <mark>如果在中国区 Azure 有多个订阅账户 Subscription，使用 `az account set --subscription <subscirption name>` 选择用来生成认证信息的订阅账户。</mark>
+    c. <mark>If there are multiple subscription accounts in Azure China, use the az account set --subscription <subscirption name> to select the subscription account that can generate the authentication information.</mark>
 
-    d. <mark>使用以下命令，生成认证文件 my.azureauth 并保存于本地。 `curl -L https://raw.githubusercontent.com/Azure/azure-sdk-for-java/master/tools/authgen.py | python > my.azureauth`</mark>
+    d. <mark>Use the following command to generate the authentication file my.azureauth and save it locally. `curl -L https://raw.githubusercontent.com/Azure/azure-sdk-for-java/master/tools/authgen.py | python > my.azureauth`</mark>
 
-3. <mark>在 Eclipse 或 IntelliJ 中，选择基于文件的方式登陆，并上传步骤 2 中生成的认证文件。</mark>
+3. <mark>In Eclipse or IntelliJ, select the file-based login and upload the authentication file generated in step 2.</mark>
 
-    a. <mark>请确认已在 Eclipse 或 IntelliJ 中安装或更新至最新版本的 Azure Toolkit 插件。 [Eclipse 指南](/documentation/articles/azure-toolkit-for-eclipse-installation/) | [IntelliJ 指南](/documentation/articles/azure-toolkit-for-intellij-installation/)</mark>
+    a. <mark> Make sure you have installed or updated to the latest version of the Azure Toolkit plug-in in Eclipse or IntelliJ.[Eclipse Guideline](/documentation/articles/azure-toolkit-for-eclipse-installation/) | [IntelliJ Guideline](/documentation/articles/azure-toolkit-for-intellij-installation/)</mark>
     
-    b. <mark>在 Azure Sign In 窗口选择 Automated 作为登陆方式，并上传步骤 2 中生成的认证文件 my.azureauth。</mark>
+    b. <mark> In Azure Sign In window, select Automated as the login method and upload the authentication file my.azureauth generated in step 2.</mark>
 
     ![12](./media/developerdifferences/developerdifferences-12.png)
 
-    c. <mark>点击登陆，即可连接中国区 Azure。如遇问题，可在 [Azure Toolkit 相关页](https://github.com/Microsoft/azure-tools-for-java)提出并标记 Mooncake 标签。
+    c. <mark> Click to login to connect to Azure China. If a problem happens, you can present and mark the Mooncake tag on the Azure Toolkit page 
 </mark>
 
 ## Examples of scenarios enabled
