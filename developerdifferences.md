@@ -1,16 +1,22 @@
-<properties 
-	pageTitle="Developer Notes for Azure in China Applications"
-	description="Introduce developerment differences in application between China Azure and Global Azure" 
-	metaKeywords="China Azure, Developer Notes, Global Azure, Visual Studio, Resource Endpoint URI, Guidance, Cloud Services, Active Directory, Service Bus, Azure PowerShell, Azure CLI, Azure SDK"
-	metaCanonical="" 
-	services="" 
-	documentationCenter="develop"  
-	authors="" 
-	solutions="" 
-	manager="TK" 
-	editor=""/>
-<tags ms.service="multiple" ms.date="" wacn.date="05/19/2016"/>
+---
 
+title: Developer Notes for Azure in China Applications
+description: Introduce developerment differences in application between China Azure and Global Azure
+metaKeywords: China Azure, Developer Notes, Global Azure, Visual Studio, Resource Endpoint URI, Guidance, Cloud Services, Active Directory, Service Bus, Azure PowerShell, Azure CLI, Azure SDK
+metaCanonical: ''
+services: ''
+documentationCenter: develop
+author: forester123
+solutions: ''
+manager: TK
+editor: ''
+
+ms.service: multiple
+ms.topic: article
+ms.author: v-johch
+ms.date: 11/08/2017
+wacn.date: 11/08/2017
+---
 # Developer Notes for Azure in China Applications
 
 ## <a name="about"></a>About this Document
@@ -147,6 +153,35 @@ Follow the instructions to setup your Visual Studio for Azure China:
 
     c. <mark> Click to login to connect to Azure China. If a problem happens, you can present and mark the Mooncake tag on the Azure Toolkit page 
 </mark>
+### Connecting to Azure China by using IntelliJ 2017.2
+
+1. Install the latest Azure Toolkits for InterlliJ plugin in InterlliJ IDEA ([Installation Guide](https://docs.azure.cn/java/intellij/azure-toolkit-for-intellij-installation).
+2. Create a file named "**AadProvider.json**" under **\<userhome\>\AzureToolsForIntelliJ**, configuration as below:
+    
+    ```
+    {
+    "EnvironmentName": "CHINA"
+    }
+    ```
+3. Save the file and restart IntelliJ, now you can connect to Azure China services via Interactive Mode in Azure Explorer.
+
+### Connecting to Azure China by using Eclipse
+
+1. Install the latest Azure Toolkits for InterlliJ plugin in Eclipse ([Installation Guide](https://docs.azure.cn/java/intellij/azure-toolkit-for-intellij-installation).
+2. Create a file named "**AadProvider.json**" under **\<userhome\>\AzureToolsForIntelliJ**, configuration as below:
+    
+    ```
+    {
+    "EnvironmentName": "CHINA"
+    }
+    ```
+3. Save the file and restart Eclipse, now you can connect to Azure China services via Interactive Mode in Azure Explorer.
+    ![interactive-mode-1](./media/developerdifferences/azure-java-sign-in-interactive-1.png)
+
+### Connecting to Azure China by using previous version plugin
+
+> [!Note]
+> If you are not able to use the latest plugin, please refer to [manual configuration](https://github.com/Azure/azure-sdk-for-java/blob/master/AUTH.md#creating-a-service-principal-in-azure) to connect to Azure China services.
 
 ## Examples of scenarios enabled
 
@@ -213,7 +248,7 @@ Service Type|Global Service URI|China Service URI
 Azure - General | *.windows.net | *.chinacloudapi.cn
 Azure - Compute | *.cloudapp.net | *.chinacloudapp.cn  
 Azure - Service Fabric Cluster | *.cloudapp.azure.com | *.cloudapp.chinacloudapi.cn
-Azure - Storage | <p>\*.blob.core.windows.net </p> <p>\*.queue.core.windows.net </p> <p>\*.table.core.windows.net</p> | <p>*.blob.core.chinacloudapi.cn </p><p> *.queue.core.chinacloudapi.cn </p><p> *.table.core.chinacloudapi.cn</p>
+Azure - Storage | <p>\*.blob.core.windows.net </p> <p>\*.queue.core.windows.net </p> <p>\*.table.core.windows.net</p><p>\*.file.core.windows.net</p> | <p>*.blob.core.chinacloudapi.cn </p><p> *.queue.core.chinacloudapi.cn </p><p> *.table.core.chinacloudapi.cn</p><p> *.file.core.chinacloudapi.cn</p>
 Azure - Service Management | https://management.core.windows.net | https://management.core.chinacloudapi.cn
 Azure - Resoure Manager (ARM) | https://management.azure.com | https://management.chinacloudapi.cn
 SQL Database | *.database.windows.net | *.database.chinacloudapi.cn
@@ -236,6 +271,9 @@ Power BI Embedded | https://embedded.powerbi.com | https://embedded.powerbi.cn
 O365 | https://login.microsoftonline.com | https://login.partner.microsoftonline.cn
 Device Login | https://aka.ms/devicelogin | https://aka.ms/deviceloginchina or https://login.chinacloudapi.cn/common/oauth2/deviceauth
 Documentdb | documents.azure.com | documents.azure.cn
+Traffic Manager |*.trafficmanager.net  | *.trafficmanager.cn
+Media Services resource | https://rest.media.azure.net | https://rest.media.chinacloudapi.cn
+Media Services Rest API |https://accountname.restv2.\<location\>.media.azure.net/api/ | https://accountname.restv2.\<location\>.media.chinacloudapi.cn/api/
 
 ### <a name="storagendpoint"></a>Storage endpoints
 
