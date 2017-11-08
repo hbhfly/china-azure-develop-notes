@@ -128,34 +128,9 @@ Follow the instructions to setup your Visual Studio for Azure China:
 
 ## <a name="use-china-azure-with-java"></a><mark>Azure China for Java users </mark>
 
-### <mark>Connecting to Azure China by using Eclipse or IntelliJ</mark>
-<mark>At present Azure CLI should be used to authentication file. Log in by selecting “based on file” in Eclipse or IntelliJ and upload the authetication file to connect. ( Please refer to [related page of Azure SDK](https://github.com/Azure/azure-sdk-for-java/blob/master/AUTH.md#creating-a-service-principal-in-azure) )。The steps are as follows：</mark>
-
-1. <mark> Please install Azure CLJ with version 2.0 and above.[Azure CLI Installation](https://docs.microsoft.com/zh-cn/cli/azure/install-azure-cli) | [Azure CLI Installation Guide](/documentation/articles/xplat-cli-install/)</mark>
-
-2. <mark>Use Azure CLI to generate an authetication file and save it locally </mark>
-
-    a. <mark>Use az cloud set --name AzureChinaCloud to connect to China Azure.</mark>
-
-    b. <mark> Use az login-u <account email> -p <account password> to replace the account and password.</mark>
-
-    c. <mark>If there are multiple subscription accounts in Azure China, use the az account set --subscription <subscirption name> to select the subscription account that can generate the authentication information.</mark>
-
-    d. <mark>Use the following command to generate the authentication file my.azureauth and save it locally. `curl -L https://raw.githubusercontent.com/Azure/azure-sdk-for-java/master/tools/authgen.py | python > my.azureauth`</mark>
-
-3. <mark>In Eclipse or IntelliJ, select the file-based login and upload the authentication file generated in step 2.</mark>
-
-    a. <mark> Make sure you have installed or updated to the latest version of the Azure Toolkit plug-in in Eclipse or IntelliJ.[Eclipse Guideline](/documentation/articles/azure-toolkit-for-eclipse-installation/) | [IntelliJ Guideline](/documentation/articles/azure-toolkit-for-intellij-installation/)</mark>
-    
-    b. <mark> In Azure Sign In window, select Automated as the login method and upload the authentication file my.azureauth generated in step 2.</mark>
-
-    ![12](./media/developerdifferences/developerdifferences-12.png)
-
-    c. <mark> Click to login to connect to Azure China. If a problem happens, you can present and mark the Mooncake tag on the Azure Toolkit page 
-</mark>
 ### Connecting to Azure China by using IntelliJ 2017.2
 
-1. Install the latest Azure Toolkits for InterlliJ plugin in InterlliJ IDEA ([Installation Guide](https://docs.azure.cn/java/intellij/azure-toolkit-for-intellij-installation).
+1. Install the latest Azure Toolkits for InterlliJ plugin in InterlliJ IDEA ([Installation Guide](https://docs.azure.cn/java/intellij/azure-toolkit-for-intellij-installation)).
 2. Create a file named "**AadProvider.json**" under **\<userhome\>\AzureToolsForIntelliJ**, configuration as below:
     
     ```
